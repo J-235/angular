@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-interface Member {
+import { HttpClient } from "@angular/common/http";
+
+export interface Member {
   memberId: number,
-  value: string
+  name: string
 }
-interface Group {
+export interface Group {
   groupId: number,
   value: Member[]
 }
@@ -14,7 +16,11 @@ interface Group {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+
+  constructor(
+    private httpClient: HttpClient,
+  ) { }
 
   $observable1: Observable<string> = new Observable(subscriber => {
     subscriber.next('Hello');
@@ -24,48 +30,11 @@ export class AppComponent implements OnInit {
     }, 2000);
   });
 
-  $observable2: Observable<Group[]> = new Observable(subscriber => {
-    const data = [
-      { groupId: 1, value: [
-        { memberId: 1, value: 'first'},
-        { memberId: 2, value: 'second'},
-        { memberId: 3, value: 'third'},
-      ] },
-      { groupId: 2, value: [
-        { memberId: 1, value: 'first'},
-        { memberId: 2, value: 'second'},
-        { memberId: 3, value: 'third'},
-      ] },
-      { groupId: 3, value: [
-        { memberId: 1, value: 'first'},
-        { memberId: 2, value: 'second'},
-        { memberId: 3, value: 'third'},
-      ] },
-    ];
-    setTimeout(() => {
-      subscriber.next(data);
-    }, 2000);
-  });
-
-  $observable3: Observable<Member> = new Observable(subscriber => {
-    const data = [
-      { : 1, value: 'first' };
-    setTimeout(() => {
-      subscriber.next(data)
-    }, 2000);
-  });
-
-
-  searchGroup() {
-    return this.$observable2;
+  getGroups(url: string): Observable<Group[]> {
+    return this.httpClient.get<Group[]>(url);
   }
 
-  ngOnInit(): void {
-
-    const result = this.$observable2.pipe(
-      switchMap(apiResponse => )
-    )
-
-
+  getMembers(url: string, id: number) {
+    return this.httpClient.get<Member[]>(`${url}/${id}`);
   }
 }
