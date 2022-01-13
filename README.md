@@ -1,5 +1,9 @@
 # Playground
 
+This project is used to learn concepts of Angular.
+The main branch contains the empty project setting.
+Branches are built to explore new concepts.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.4.
 
 ## Development server
