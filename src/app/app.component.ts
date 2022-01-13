@@ -21,15 +21,15 @@ export class AppComponent {
     
     // output: With concatMap: Delayed by: 4010ms, With concatMap: Delayed by: 2010ms
     const concatMapExample = source
-    .pipe(concatMap(val => observableOf(`Delayed by: ${val}ms`)
-    .pipe(delay(val))))
-    .subscribe(val => console.log(`With concatMap: ${val}`));
+      .pipe(concatMap(val => observableOf(`Delayed by: ${val}ms`)
+      .pipe(delay(val))))
+      .subscribe(val => console.log(`With concatMap: ${val}`));
     
     // output: With mergeMap: Delayed by: 1000ms, With mergeMap: Delayed by: 2000ms
     const mergeMapExample = source
-    .pipe(mergeMap(val => observableOf(`Delayed by: ${val}ms`)
-    .pipe(delay(val))))
-    .subscribe(val => console.log(`With mergeMap: ${val}`));
+      .pipe(mergeMap(val => observableOf(`Delayed by: ${val}ms`)
+      .pipe(delay(val))))
+      .subscribe(val => console.log(`With mergeMap: ${val}`));
 
     // output: With concatMap: calculated delay: 4005ms, With concatMap: calculated delay: 2005ms
     const multipleConcatMapExample = source
