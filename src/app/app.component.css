@@ -1,0 +1,17 @@
+table {
+    width: 200px;
+    margin: 30px;
+}
+
+#todoBacklog {
+    cursor: pointer;
+}
+
+#todoBacklog .cdk-drag-disabled {
+    background: #ccc;
+    cursor: default;
+}
+
+h4 {
+    margin: 30px;
+}

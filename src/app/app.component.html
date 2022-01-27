@@ -1,0 +1,55 @@
+<h4>Current Todos</h4>
+
+<table 
+    mat-table 
+    cdkDropList
+    id="currentTodos"
+    [cdkDropListConnectedTo]="['todoBacklog']"
+    (cdkDropListDropped)="onDrop($event)"
+    class="mat-elevation-z8"
+    [dataSource]="currentTodoDataSource$ | async">
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element"> {{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="deadline">
+        <th mat-header-cell *matHeaderCellDef>Deadline</th>
+        <td mat-cell *matCellDef="let element"> {{ element.deadline }}</td>
+    </ng-container>
+
+    <tr mat-header-row 
+        *matHeaderRowDef="columnsCurrent; sticky: true"></tr>
+    <tr mat-row 
+        *matRowDef="let row; columns: columnsCurrent"
+        cdkDrag></tr>
+</table>
+
+<h4>Backlog</h4>
+
+<table 
+    mat-table
+    cdkDropList 
+    id="todoBacklog"
+    [cdkDropListConnectedTo]="['currentTodos']"
+    class="mat-elevation-z8"
+    [dataSource]="todoBacklogDataSource$ | async">
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element"> {{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="deadline">
+        <th mat-header-cell *matHeaderCellDef>Deadline</th>
+        <td mat-cell *matCellDef="let element"> {{ element.deadline }}</td>
+    </ng-container>
+
+    <tr mat-header-row 
+        *matHeaderRowDef="columnsBacklog; sticky: true"></tr>
+    <tr mat-row 
+        *matRowDef="let row; columns: columnsBacklog"
+        cdkDrag
+        [cdkDragDisabled]="row.deadline ? true : false"></tr>
+</table>
