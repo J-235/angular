@@ -34,6 +34,8 @@ export class AppComponent {
   // @ViewChild(MatTable) currentTodoTable: MatTable<Todo>;
   @ViewChildren(MatTable) allTables: QueryList<MatTable<Todo>>;
 
+  droppedElements: number[] = [];
+
   ngOnInit() {
     this.currentTodoCache.push(
       { ...defaultTodo, description: 'T1'}, 
@@ -59,14 +61,20 @@ export class AppComponent {
         event.previousIndex,
         event.currentIndex,
       );
-      
+      event.item.disabled = true;
     }
+
     // this.currentTodoTable.renderRows();
     for(let table of this.allTables) {
       table.renderRows();
     }
+    
     console.log('current', this.currentTodoCache)
     console.log('backlog', this.todoBacklogCache)
-    
   }
+
+  // disable(row: Todo): boolean {
+  //   if(row.deadline) return true;
+
+  // }
 }
